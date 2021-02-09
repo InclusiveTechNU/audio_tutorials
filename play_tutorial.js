@@ -13,7 +13,6 @@ for (const tutorialPart of tutorial) {
     tutorialPartId = setInterval(function(){
         const garageband = v11.system.getApplicationByName('GarageBand');
         const component = garageband.getElementsByLabel(tutorialPart.label)[0];
-        console.log(tutorialPart.newValue, component.value);
         if (tutorialPart.newValue === component.value) {
             intervalsLeft--;
             clearInterval(tutorialPartId);
