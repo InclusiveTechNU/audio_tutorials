@@ -1,4 +1,4 @@
-const iohook = require('../iohook/index.js');
+const iohook = require('./iohook/index.js');
 const v11 = require ('../v11/bazel-bin/v11/typescript/v11.js');
 const fs = require('fs');
 const process = require('process');
