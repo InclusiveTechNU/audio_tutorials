@@ -40,6 +40,7 @@ function getDifferences(newSnapshot, originalSnapshot) {
 const garageband = v11.system.getApplicationByName('GarageBand');
 const tracksHeader = garageband.getElementsByLabel("Tracks header")[0];
 const tracksHeaderSnapshot = captureSnapshot(tracksHeader);
+console.log('Ready to run!');
 
 const id = iohook.registerShortcut([29, 65], (keys) => {
     console.log('Creating tutorial!');
