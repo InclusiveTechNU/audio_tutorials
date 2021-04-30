@@ -1,0 +1,15 @@
+{
+    "extends": "./tsconfig.json",
+    "compileOnSave": false,
+    "compilerOptions": {
+        "module": "ESNext",
+        "sourceMap": false,
+        "types": [
+            "@types/chrome"
+        ],
+        "lib": [
+            "es2020",
+            "dom"
+        ]
+    }
+}

@@ -1,0 +1,60 @@
+#  Copyright 2020 Northwestern Inclusive Technology Lab
+# 
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary", "js_library")
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@build_stack_rules_proto//node:node_proto_library.bzl", "node_proto_library")
+
+proto_library(
+    name = "audio_tutorials_proto_lib",
+    srcs = [
+        "tutorial.proto",
+        "keyboard_event.proto",
+        "mouse_event.proto",
+        "accessibility_event.proto"
+    ],
+    deps = [
+        "//base:base_timestamp_proto_lib",
+        "//base/audio:base_audio_recording_proto_lib"
+    ],
+    visibility = ["//visibility:public"],
+)
+
+node_proto_library(
+    name = "audio_tutorials_proto_node_lib",
+    deps = [":audio_tutorials_proto_lib"],
+    visibility = ["//visibility:public"],
+)
+
+js_library(
+    name = "audio_tutorials_generator_node_lib",
+    srcs = [
+        "tutorial_generator.js"
+    ],
+    deps = [
+        ":audio_tutorials_proto_node_lib",
+        "//third_party/iohook:iohook_node_lib",
+        "@npm//node-audiorecorder",
+    ],
+)
+
+nodejs_binary(
+    name = "audio_tutorials_generator_bin",
+    data = [
+        "//programming/v11/typescript:v11_lib_node",
+        ":audio_tutorials_generator_node_lib",
+    ],
+    entry_point = ":tutorial_generator.js",
+    visibility = ["//visibility:public"],
+)

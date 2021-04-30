@@ -1,0 +1,66 @@
+/*
+ * Copyright 2020 Northwestern Inclusive Technology Lab
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+syntax = "proto3";
+package itl.audio.tutorials;
+
+import "audio/tutorials/generator/accessibility_event.proto";
+import "audio/tutorials/generator/keyboard_event.proto";
+import "audio/tutorials/generator/mouse_event.proto";
+import "base/audio/recording.proto";
+import "base/timestamp.proto";
+
+// A fully encapsulated audio editing tutorial that includes a voice overlay,
+// events in the tutorial, and metadata about the tutorial. Tutorials serve
+// to help users learn how to accomplish tasks in an audio editor.
+message Tutorial {
+    // Descriptive information about the contents of the tutorial, such as who
+    // created it and when they created it.
+    TutorialMetadata metadata = 1;
+
+    // An audio recording with instructions about accomplishing the tutorials
+    // tasks. 
+    base.AudioRecording recording = 2;
+
+    // Changes to the accessibility tree that are recorded by the tutorial
+    // creator.
+    repeated AccessibilityEvent accessibility_events = 3;
+
+    // Keyboard events, such as presses, that happen when the tutorial creator
+    // records the tutorial.
+    repeated KeyboardEvent keyboard_events = 4;
+
+    // Mouse events, such as presses, that happen when the tutorial creator
+    // records the tutorial.
+    repeated MouseEvent mouse_events = 5;
+}
+
+// Descriptive information about a tutorial, including who created it
+// and when they last edited the tutorial.
+message TutorialMetadata {
+    // A title to describe the purpose of the tutorial.
+    string title = 1;
+
+    // The display names of the people who created the tutorial.
+    repeated string author = 2;
+
+    // The timestamp of when the tutorial was created.
+    base.Timestamp time_created = 3;
+
+    // The timestamp of when the tutorial or its metadata was last modified
+    // by a person or program.
+    base.Timestamp time_last_modified = 4;
+}

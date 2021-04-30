@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "audio-loader": "^1.0.3",
+    "audio-play": "^2.3.1",
+    "node-audiorecorder": "^2.2.0",
+    "node-wav-player": "^0.2.0",
+    "wav-decoder": "^1.3.0"
+  }
+}
